@@ -3,40 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>taylor swift</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #quiz-container {
+            max-width: 6000px;
+            margin: auto;
+        }
+        .question {
+            font-size: 70px;
+            margin-bottom: 10px;
+        }
+        .options button {
+            margin: 70px;
+            padding: 10px;
+            font-size: 60px;
+            cursor: pointer;
+        }
+    </style>
+    <title>Quiz Game</title>
 </head>
-<body bgcolor="teal">
-    <h3> WEEK 1: INTRODUCTION TO THE INTERNET AND WEB DEVELOPMENT </h3>
-    <H3> Manya Gupta CB23142</H3>
-    <h1 text-align="center"; style="color:rgb(160, 40, 60);"><b>Taylor Swift : The Eras Tour</b></h1>
-    <P>Taylor Swift's record-breaking concert film The Eras Tour has come to India, and Swifties can't calm down. Videos floating on Twitter from across the country show how fans are treating the film as a Taylor Swift concert by singing and dancing to her songs in the theatres</P>
-    <p>Taylor Alison Swift (born December 13, 1989) is an American singer-songwriter. Recognized for her songwriting, musical versatility, artistic reinventions, and influence on the music industry, she is a prominent cultural figure of the 21st century.<br> <h2> Her Career Timeline</h2>
-        <br>2006 - 2007: debut album
-        <br>2008 - 2010: Fearless and Speak Now
-        <br>2012 - 2014: Red
-        <br>2014 - 2016: 1989
-        <br>2017 - 2019: reputation<br>
-        <h3>enter your details </h3>
+<body>
 
-        <br><form>
+<div id="quiz-container">
+    <div id="question-container" class="question"></div>
+    <div id="options-container" class="options"></div>
+    <button onclick="nextQuestion()">Next Question</button>
+</div>
 
-            first name:<input type="text" name="fname"/><br>
-
-            last name :<input type ="text" name="lname"/><br>
-            <input type="submit" name="submit"value="submit"/>
-
-
-        </form>
-        <img src="https://www.rollingstone.com/wp-content/uploads/2023/04/taylor-swift-tamps-RS-1800.jpg?w=1581&h=1054&crop=1" ; height="300">
-        <img src="https://hips.hearstapps.com/hmg-prod/images/taylor-swift-performs-onstage-for-night-one-of-taylor-swift-news-photo-1689066293.jpg?resize=1024:*"; height="300" >
-        <br>
-        <p><h2> Taylor's interview:</h2> </p>
-        <iframe width="820" height="545" src="https://www.youtube.com/embed/on4bHNdUm-I"></iframe>
+<script>
+    const quizData = [
+        {
+            question: "Messenger satellite has been launched by NASA for the study of",
+            options: ["mercury", "venus", "saturn", "jupiter"],
+            correctAnswer: "mercury"
+        },
+        {
+            question: "Which planet is known as the Red Planet?",
+            options: ["Mars", "Jupiter", "Venus", "Saturn"],
+            correctAnswer: "Mars"
+        },
+        {
+            question: "Halley's comet appears once in a period of",
+            options: ["24 years", "32 years", "76 years", "84 years"],
+            correctAnswer: "76 years"
+        }
         
-        <iframe width="820" height="545" src="https://www.youtube.com/embed/EtJFYVVA3iQ"></iframe>
-        <p><h2> my spotify playlist </h2></p>
+    ];
 
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5KpP2LN299J?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    </p>
+    let currentQuestionIndex = 0;
+
+    function loadQuestion() {
+        const currentQuestion = quizData[currentQuestionIndex];
+        document.getElementById("question-container").innerHTML = currentQuestion.question;
+
+        const optionsContainer = document.getElementById("options-container");
+        optionsContainer.innerHTML = "";
+
+        currentQuestion.options.forEach(option => {
+            const button = document.createElement("button");
+            button.innerText = option;
+            button.onclick = function () {
+                checkAnswer(option);
+            };
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function checkAnswer(selectedAnswer) {
+        const currentQuestion = quizData[currentQuestionIndex];
+
+        if (selectedAnswer === currentQuestion.correctAnswer) {
+            alert("Correct!");
+        } else {
+            alert("Wrong! The correct answer is: " + currentQuestion.correctAnswer);
+        }
+
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizData.length) {
+            loadQuestion();
+        } else {
+            alert("Quiz completed!");
+            currentQuestionIndex = 0; 
+            loadQuestion();
+        }
+    }
+
+    function nextQuestion() {
+        if (currentQuestionIndex < quizData.length) {
+            loadQuestion();
+        } else {
+            alert("Quiz completed!");
+            currentQuestionIndex = 0;
+            loadQuestion();
+        }
+    }
+
+    // Initial load
+    loadQuestion();
+</script>
+
 </body>
 </html>
